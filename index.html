@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Lens™ — Hugo Korhonen</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #071220;
+      color: #e8e8e8;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container { max-width: 740px; margin: 0 auto; padding: 0 24px; }
+    .container-wide { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+    h1 { font-size: 46px; font-weight: 800; color: #fff; letter-spacing: -1.5px; line-height: 1.1; }
+    h2 { font-size: 32px; font-weight: 800; color: #fff; letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 16px; }
+    h3 { font-size: 19px; font-weight: 700; color: #fff; margin-bottom: 8px; letter-spacing: -0.3px; }
+    p  { font-size: 15px; color: #8aabc8; line-height: 1.8; margin-bottom: 16px; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: #c0ccd8; }
+    em { font-style: italic; color: #c0ccd8; }
+
+    .label {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: #4a96e8; display: block; margin-bottom: 14px;
+    }
+
+    .section { padding: 80px 0; border-bottom: 1px solid #0d1f33; }
+    .section-sm { padding: 56px 0; border-bottom: 1px solid #0d1f33; }
+
+    /* LOGO BAR */
+    .logo-bar { padding: 16px 24px; border-bottom: 1px solid #0d1f33; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: #071220; z-index: 100; }
+    .logo-bar span { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #4a96e8; }
+    .logo-bar .nav-cta { background: #4a96e8; color: #fff; padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+    .logo-bar .nav-cta:hover { background: #5aa6f8; }
+
+    /* HERO */
+    .hero { padding: 80px 0 72px; text-align: center; border-bottom: 1px solid #0d1f33; }
+    .hero h1 { margin-bottom: 20px; }
+    .hero h1 em { color: #4a96e8; font-style: normal; }
+    .hero-sub { font-size: 17px; color: #8aabc8; max-width: 560px; margin: 0 auto 36px; line-height: 1.7; }
+
+    .avatar-row { display: flex; justify-content: center; margin-bottom: 12px; }
+    .avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: #1a3a5a; border: 2px solid #071220;
+      margin-left: -8px; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: #4a96e8; font-weight: 700;
+    }
+    .avatar:first-child { margin-left: 0; }
+
+    .proof-line { font-size: 13px; color: #4a6a8a; margin-bottom: 40px; }
+    .proof-line strong { color: #8aabc8; }
+
+    .hero-img {
+      width: 100%; max-width: 600px; height: 340px;
+      background: #0d1a27; border: 1px solid #1a2a3a; border-radius: 14px;
+      margin: 0 auto 40px; display: flex; align-items: center; justify-content: center;
+      color: #2a4a6a; font-size: 13px; overflow: hidden;
+    }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
+
+    .trust-pills { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
+    .trust-pills span { font-size: 12px; color: #3a5a7a; display: flex; align-items: center; gap: 5px; }
+    .trust-pills span::before { content: '✓'; color: #1e5fa8; font-weight: 700; }
+
+    /* STATS */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: #0d1f33; border-radius: 14px; overflow: hidden;
+      border: 1px solid #0d1f33; margin-top: 56px;
+    }
+    .stat-cell { background: #0d1a27; padding: 28px 16px; text-align: center; }
+    .stat-cell .num { font-size: 26px; font-weight: 800; color: #fff; display: block; }
+    .stat-cell .lbl { font-size: 11px; color: #3a5a7a; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* SCARCITY BAR */
+    .scarcity-bar {
+      background: #0a1e35; border-top: 1px solid #1e5fa8; border-bottom: 1px solid #1e5fa8;
+      padding: 16px 24px; text-align: center;
+    }
+    .scarcity-bar p { font-size: 14px; color: #c0ccd8; margin: 0; font-weight: 500; }
+    .scarcity-bar strong { color: #4a96e8; }
+
+    /* TWO TRAPS */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+    .trap-card { background: #0d1a27; border: 1px solid #1a2a3a; border-radius: 12px; padding: 24px 26px; }
+    .trap-card .trap-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #2a4a6a; margin-bottom: 10px; display: block; }
+    .trap-card p { font-size: 14px; }
+    .trap-callout { background: #0a1e35; border: 1px solid #1e5fa8; border-radius: 12px; padding: 24px 28px; margin-top: 16px; text-align: center; }
+    .trap-callout p { color: #c0ccd8; font-size: 15px; font-weight: 600; }
+
+    /* WIN CARDS */
+    .wins-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 32px; }
+    .win-card { background: #0d1a27; border: 1px solid #1a2a3a; border-radius: 12px; padding: 20px 22px; display: flex; gap: 14px; align-items: flex-start; }
+    .win-avatar { width: 44px; height: 44px; border-radius: 50%; background: #1a3a5a; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #4a96e8; font-weight: 700; }
+    .win-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .win-result { font-size: 13px; color: #4a96e8; font-weight: 600; margin-bottom: 6px; }
+    .win-quote { font-size: 12px; color: #4a6a8a; line-height: 1.5; }
+
+    /* VIDEO */
+    .video-wrap {
+      width: 100%; max-width: 640px; margin: 32px auto 0;
+      border-radius: 14px; overflow: hidden; border: 1px solid #1a2a3a;
+      aspect-ratio: 16/9;
+    }
+    .video-wrap iframe { width: 100%; height: 100%; border: none; }
+
+    /* PHASES */
+    .phases { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+    .phase { background: #0d1a27; border: 1px solid #1a2a3a; border-radius: 12px; padding: 24px 28px; display: grid; grid-template-columns: 100px 1fr; gap: 20px; }
+    .phase-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #1e5fa8; padding-top: 3px; line-height: 1.6; }
+    .phase ul { list-style: none; margin-top: 10px; }
+    .phase ul li { font-size: 14px; color: #8aabc8; padding: 4px 0 4px 16px; position: relative; line-height: 1.5; }
+    .phase ul li::before { content: '→'; position: absolute; left: 0; color: #1e5fa8; font-size: 12px; }
+    .phase-goal { margin-top: 14px; font-size: 13px; font-weight: 700; color: #4a96e8; padding-top: 12px; border-top: 1px solid #0d1f33; }
+
+    /* FEATURES */
+    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 32px; }
+    .feature { background: #0d1a27; border: 1px solid #1a2a3a; border-radius: 12px; padding: 24px; }
+    .feature-icon { font-size: 26px; margin-bottom: 12px; }
+    .feature h3 { font-size: 16px; margin-bottom: 8px; }
+    .feature p { font-size: 14px; margin-bottom: 0; }
+
+    .ai-card { background: #0a1e35; border: 1px solid #1e5fa8; border-radius: 14px; padding: 28px 32px; margin-top: 12px; }
+    .ai-card h3 { font-size: 18px; margin-bottom: 10px; }
+    .ai-screenshot { background: #071220; border: 1px solid #1a2a3a; border-radius: 10px; padding: 16px; margin-top: 16px; font-size: 13px; color: #4a6a8a; text-align: center; }
+
+    /* PRICING */
+    .price-hero { text-align: center; padding: 40px 0 28px; }
+    .price-big { font-size: 60px; font-weight: 800; color: #fff; letter-spacing: -2px; }
+    .price-week { font-size: 18px; color: #4a6a8a; margin-top: 6px; }
+    .price-compare { font-size: 14px; color: #3a5a7a; margin-top: 8px; }
+
+    .offers { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+    .offer { background: #0d1a27; border: 1px solid #1a2a3a; border-radius: 14px; padding: 28px 32px; }
+    .offer.featured { border-color: #1e5fa8; }
+    .offer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; gap: 12px; flex-wrap: wrap; }
+    .offer-price-num { font-size: 30px; font-weight: 800; color: #fff; }
+    .offer-price-num span { font-size: 14px; font-weight: 400; color: #4a6a8a; }
+    .offer-badge { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #4a96e8; background: #0a1e35; border: 1px solid #1e5fa8; padding: 5px 12px; border-radius: 20px; white-space: nowrap; }
+    .offer ul { list-style: none; margin: 14px 0 22px; }
+    .offer ul li { font-size: 14px; color: #c0ccd8; padding: 5px 0 5px 20px; position: relative; line-height: 1.5; }
+    .offer ul li::before { content: '✓'; position: absolute; left: 0; color: #4a96e8; font-weight: 700; }
+
+    /* STRETCH BOX */
+    .stretch-box { background: #0d1a27; border: 1px solid #1a2a3a; border-radius: 14px; padding: 36px; margin-top: 32px; }
+    .stretch-box p { font-size: 15px; }
+    .stretch-box blockquote { border-left: 2px solid #1e5fa8; padding-left: 16px; margin: 20px 0; font-size: 15px; color: #c0ccd8; font-style: italic; line-height: 1.7; }
+
+    /* GUARANTEE */
+    .guarantee { background: #0a1e35; border: 1px solid #1e5fa8; border-radius: 14px; padding: 40px; text-align: center; margin-top: 32px; }
+    .guarantee h3 { font-size: 24px; margin-bottom: 14px; }
+    .guarantee p { max-width: 520px; margin: 0 auto 14px; }
+
+    /* FOR / NOT FOR */
+    .for-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+    .for-card { background: #0d1a27; border: 1px solid #1a2a3a; border-radius: 12px; padding: 24px 26px; }
+    .for-card ul { list-style: none; margin-top: 14px; }
+    .for-card ul li { font-size: 14px; color: #8aabc8; padding: 5px 0 5px 20px; position: relative; line-height: 1.5; }
+    .for-card.yes ul li::before { content: '✓'; position: absolute; left: 0; color: #4a96e8; font-weight: 700; }
+    .for-card.no ul li::before { content: '✕'; position: absolute; left: 0; color: #3a5a7a; }
+
+    /* FOUNDER */
+    .founder-grid { display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: start; margin-top: 32px; }
+    .founder-img { width: 200px; height: 240px; border-radius: 12px; background: #0d1a27; border: 1px solid #1a2a3a; display: flex; align-items: center; justify-content: center; color: #2a4a6a; font-size: 12px; text-align: center; padding: 16px; overflow: hidden; }
+    .founder-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+
+    /* TESTIMONIALS */
+    .testimonials { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+    .testimonial { background: #0d1a27; border: 1px solid #1a2a3a; border-radius: 12px; padding: 24px 28px; }
+    .testimonial blockquote { font-size: 15px; color: #c0ccd8; line-height: 1.7; font-style: italic; margin-bottom: 12px; }
+    .testimonial cite { font-size: 12px; color: #4a6a8a; font-style: normal; }
+
+    /* FAQ */
+    .faqs { display: flex; flex-direction: column; gap: 4px; margin-top: 32px; }
+    .faq { background: #0d1a27; border: 1px solid #1a2a3a; border-radius: 10px; padding: 20px 24px; }
+    .faq h3 { font-size: 15px; margin-bottom: 8px; }
+    .faq p { font-size: 14px; margin-bottom: 0; }
+
+    /* BUTTONS */
+    .btn { display: inline-block; padding: 15px 28px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; border: none; text-align: center; text-decoration: none; }
+    .btn-primary { background: #4a96e8; color: #fff; }
+    .btn-primary:hover { background: #5aa6f8; }
+    .btn-secondary { background: transparent; color: #4a96e8; border: 1px solid #1e5fa8; }
+    .btn-secondary:hover { border-color: #4a96e8; }
+    .btn-ghost { background: transparent; color: #4a6a8a; border: 1px solid #1a2a3a; font-size: 13px; }
+    .btn-block { display: block; width: 100%; }
+
+    .cta-stack { display: flex; flex-direction: column; gap: 10px; max-width: 440px; margin: 0 auto; }
+
+    /* FINAL CTA */
+    .final-cta { padding: 96px 0; text-align: center; }
+    .final-cta h2 { margin-bottom: 16px; }
+    .final-cta > .container > p { max-width: 480px; margin: 0 auto 40px; }
+
+    /* FOOTER */
+    .footer { padding: 32px 0; text-align: center; border-top: 1px solid #0d1f33; }
+    .footer p { font-size: 12px; color: #2a4a6a; margin-bottom: 0; }
+
+    /* EDIT BAR */
+    #edit-bar { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; gap: 8px; align-items: center; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 30px; }
+      h2 { font-size: 24px; }
+      .two-col, .wins-grid, .features-grid, .for-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .phase { grid-template-columns: 1fr; }
+      .founder-grid { grid-template-columns: 1fr; }
+      .founder-img { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGO BAR -->
+  <div class="logo-bar">
+    <span>Story Lens™</span>
+    <a href="#pricing" class="nav-cta">Join the Community →</a>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="container">
+      <h1>Get better at photography.<br><em>Build a life around it.</em></h1>
+      <p class="hero-sub">Most photographers stay stuck — improving in private, with no clients, no income, and no clear path forward. Story Lens gives you the framework to transform your craft AND build something real around it.</p>
+
+      <div class="avatar-row">
+        <div class="avatar"><img src="photos/sales page/andreas_karaolis.png" alt="Andreas" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" /></div>
+        <div class="avatar"><img src="photos/sales page/giando.jpg" alt="Giando" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" /></div>
+        <div class="avatar"><img src="photos/sales page/jo_kinberger.png" alt="Jo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" /></div>
+        <div class="avatar"><img src="photos/sales page/nicole-studer.png" alt="Nicole" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" /></div>
+        <div class="avatar"><img src="photos/sales page/susan_grimes.png" alt="Susan" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" /></div>
+      </div>
+      <p class="proof-line"><strong>Students in 17 countries</strong> — real photographers building real results.</p>
+
+<a href="https://www.skool.com/story-lens/about" class="btn btn-primary">Start for $25/week → ($100/month)</a>
+      <div class="trust-pills">
+        <span>Cancel anytime</span>
+        <span>14-day money-back guarantee</span>
+        <span>Instant access</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- IDENTITY FORK -->
+  <div class="section">
+    <div class="container">
+      <span class="label">Which photographer are you?</span>
+      <h2>Do you want to keep wondering what's possible — or actually find out?</h2>
+      <div class="two-col">
+        <div class="trap-card">
+          <span class="trap-label">Photographer A</span>
+          <h3>Talented. Going nowhere.</h3>
+          <p>Improving in private. Getting better, but with no clients, no income, no clear direction. Still waiting for the "right moment" to build something real around your photography.</p>
+        </div>
+        <div class="trap-card">
+          <span class="trap-label">Photographer B</span>
+          <h3>Skilled. And building.</h3>
+          <p>Following a proven framework. Serious about craft AND what comes after it. Building the life where photography sits at the center — not as a pipe dream, but as the foundation.</p>
+        </div>
+      </div>
+      <div class="trap-callout">
+        <p>The difference isn't talent. It's having the right system — and deciding to start.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOUNDER NARRATIVE -->
+  <div class="section">
+    <div class="container">
+      <span class="label">The story</span>
+      <h2>I was Photographer A for years. Then one conversation changed everything.</h2>
+      <div class="founder-grid">
+        <div class="founder-img"><img src="photos/sales page/hugo_portrait.jpg" alt="Hugo Korhonen" /></div>
+        <div>
+          <p>I started insecure about my photos. Wondering why they weren't getting reach. Improving slowly, confused about how anyone actually turned photography into a real life.</p>
+          <p>The breakthrough came when a mentor told me something I didn't expect: <em>"You're a good photographer. But making money directly from your photos might not be the best path for you."</em></p>
+          <p>That reframe changed my entire direction. I stopped trying to force one path and started learning what it actually takes to build a life where photography sits at the center. I learned from people ahead of me — not from YouTube, but from mentors with real results.</p>
+          <p>By 2025: 900,000 Instagram followers. A 6-figure business. Living in Bali, shooting what I love, choosing my own schedule.</p>
+          <p>Not because I'm special. Because I finally had the right framework — and the right people around me.</p>
+          <p>I built Story Lens because when I was stuck, this didn't exist. Now it does.</p>
+        </div>
+      </div>
+      <div class="stats-row" style="margin-top:32px;">
+        <div class="stat-cell">
+          <span class="num">900K+</span>
+          <span class="lbl">Followers</span>
+        </div>
+        <div class="stat-cell">
+          <span class="num">9 yrs</span>
+          <span class="lbl">Behind the lens</span>
+        </div>
+        <div class="stat-cell">
+          <span class="num">5 yrs</span>
+          <span class="lbl">Running the business</span>
+        </div>
+        <div class="stat-cell">
+          <span class="num">6-fig</span>
+          <span class="lbl">Revenue in 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE GOAL -->
+  <div class="section">
+    <div class="container">
+      <span class="label">What this gets you</span>
+      <h2>Our goal: help you transform your photography AND build a life around it — without wasting years figuring it out alone.</h2>
+      <p>Whether that means getting your first paid client, landing brand deals, building a social presence that opens doors, or eventually making photography your full career — the framework covers all of it. You choose the path that fits your goals.</p>
+      <p>The photographers who break through aren't more talented than you. They just learned both sides: world-class craft AND a real system for building around it. That's what Story Lens is built for.</p>
+    </div>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="section">
+    <div class="container">
+      <span class="label">Why most photographers stay stuck</span>
+      <h2>The photography industry teaches you how to take photos. It doesn't teach you how to build a life around them.</h2>
+      <p>YouTube tutorials. Camera reviews. Preset packs. Endless content about composition and editing — and almost none of it tells you how to get clients, build a brand, or create income from your photography.</p>
+      <p>So photographers stay stuck. Great work. No clients. No system. No income that reflects what they're capable of.</p>
+      <p>And it's getting harder. AI is flooding the market with generic content. The photographers who build their brand and client base now will be the ones who thrive. The ones who wait will find it significantly harder.</p>
+      <p>The ones who break through don't wait. They find the right framework and they start.</p>
+    </div>
+  </div>
+
+  <!-- STUDENT WINS -->
+  <div class="section">
+    <div class="container">
+      <span class="label">Student results</span>
+      <h2>They started exactly where you are.</h2>
+      <div class="wins-grid">
+        <div class="win-card">
+          <div class="win-avatar">F</div>
+          <div>
+            <div class="win-name">Finn Mommsen</div>
+            <div class="win-result">Complete photography transformation in 6 weeks</div>
+            <div class="win-quote">"Before working with Hugo, I loved photography but often felt stuck and unsure about my results. Now, looking back, I feel genuinely proud of how far I've come in such a short time."</div>
+          </div>
+        </div>
+        <div class="win-card">
+          <div class="win-avatar">J</div>
+          <div>
+            <div class="win-name">Joanna</div>
+            <div class="win-result">From auto mode to shooting manual confidently</div>
+            <div class="win-quote">"I progressed more in one month than in the previous years. Hugo told me he would have been proud to take one of my photos himself."</div>
+          </div>
+        </div>
+        <div class="win-card">
+          <div class="win-avatar">A</div>
+          <div>
+            <div class="win-name">Abhay</div>
+            <div class="win-result">Found his creative voice and photo vision</div>
+            <div class="win-quote">"Before Hugo, there was little to no vision or soul behind my images. I learned that your vision doesn't come from your eyes or mind — but from your heart."</div>
+          </div>
+        </div>
+        <div class="win-card">
+          <div class="win-avatar">+</div>
+          <div>
+            <div class="win-name">Add student win here</div>
+            <div class="win-result">Business result — first client / income milestone</div>
+            <div class="win-quote">"[Add business-side testimonial here]"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHOTOGRAPHY TRANSFORMATIONS -->
+  <div class="section">
+    <div class="container">
+      <span class="label">Real transformations</span>
+      <h2>What happens when photographers follow the framework.</h2>
+      <p>These aren't cherry-picked outliers. This is what consistent implementation looks like.</p>
+
+      <!-- FINN -->
+      <div style="margin-top:40px;">
+        <h3 style="margin-bottom:6px;">Finn Mommsen — Photography transformation in 6 weeks</h3>
+        <p style="margin-bottom:20px;">"Before working with Hugo, I loved photography but often felt stuck and unsure about my results. Now, looking back, I feel genuinely proud of how far I've come in such a short time."</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2a4a6a;margin-bottom:6px;">Before</div>
+            <img src="photos/sales page/finn_before_1.jpg" alt="Finn before" style="width:100%;border-radius:10px;display:block;margin-bottom:8px;" />
+            <img src="photos/sales page/finn_before_2jpg.jpg" alt="Finn before" style="width:100%;border-radius:10px;display:block;" />
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#4a96e8;margin-bottom:6px;">After</div>
+            <img src="photos/sales page/Finn_after_1.jpg" alt="Finn after" style="width:100%;border-radius:10px;display:block;margin-bottom:8px;" />
+            <img src="photos/sales page/Finn_after_2.jpg" alt="Finn after" style="width:100%;border-radius:10px;display:block;" />
+          </div>
+        </div>
+        <div class="video-wrap" style="margin-top:20px;">
+          <iframe src="https://www.youtube.com/embed/u7iVsChl_VE" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE STUDIES -->
+  <div class="section">
+    <div class="container">
+      <span class="label">Student case studies</span>
+      <h2>Hear it from them directly.</h2>
+      <p>Photography transformations, business results, and everything in between.</p>
+
+      <div style="display:flex;flex-direction:column;gap:32px;margin-top:32px;">
+
+        <div>
+          <h3 style="margin-bottom:4px;">Nicole — Business results</h3>
+          <p style="margin-bottom:12px;font-size:14px;">Building a photography business from scratch.</p>
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/-RIUxlKx7to" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="margin-bottom:4px;">Joanna — From unsure to confident</h3>
+          <p style="margin-bottom:12px;font-size:14px;">"I progressed more in one month than in the previous years."</p>
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/jMCJ4xFh2wI" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="margin-bottom:4px;">Abhay — Finding his creative voice</h3>
+          <p style="margin-bottom:12px;font-size:14px;">"Before Hugo, there was little to no vision or soul behind my images."</p>
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/x44DO3L-dw8" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="margin-bottom:4px;">Andreas — Business results breakdown</h3>
+          <p style="margin-bottom:12px;font-size:14px;">Hugo breaks down Andreas' results in detail.</p>
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/q05cpaCgVdo" allowfullscreen></iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- THE FRAMEWORK VIDEO -->
+  <div class="section">
+    <div class="container">
+      <span class="label">The Story Lens Freedom Framework</span>
+      <h2>Watch Hugo walk through the complete framework.</h2>
+      <p>This is the same system inside the community — explained in full. Four phases that take you from improving your craft to building a real life around photography.</p>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/Pu1LmAydSsQ" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE PLAN -->
+  <div class="section">
+    <div class="container">
+      <span class="label">Four phases. One complete system.</span>
+      <h2>The Story Lens Freedom Framework — step by step.</h2>
+      <img src="photos/sales page/story-lens-freedom-framework.png" alt="The Story Lens Freedom Framework" style="width:100%;max-width:640px;display:block;margin:24px auto 40px;border-radius:12px;" />
+      <div class="phases">
+        <div class="phase">
+          <div class="phase-tag">Phase 01<br>Photography</div>
+          <div>
+            <h3>The Storycraft System</h3>
+            <p>Hugo's complete method for making photographs that stop people mid-scroll. Outdoor, nature, landscape, wildlife, and street photography. Built over 9 years across 4 continents. Short, impactful lessons built around the exact methods Hugo uses himself.</p>
+            <ul>
+              <li>See the world like a storyteller, not just a camera operator</li>
+              <li>Build confidence behind the lens — camera settings, composition, timing</li>
+              <li>The Story Triangle: Moment, Focus, Mood</li>
+              <li>Develop a unique creative voice and editing style</li>
+              <li>Break through creative blocks and find your photographic identity</li>
+            </ul>
+            <div class="phase-goal">Most members notice a real transformation in their photography within 60 days of implementing this.</div>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-tag">Phase 02<br>Sales</div>
+          <div>
+            <h3>The Freedom Offer Framework + Authentic Sales System</h3>
+            <p>Turn your photography into something people actually pay for — and learn how to sell it without ever feeling sleazy about it.</p>
+            <ul>
+              <li>Build an offer that clearly communicates value</li>
+              <li>Price your work with confidence — no more undercharging</li>
+              <li>Learn authentic outreach that doesn't feel like cold selling</li>
+              <li>Handle pricing conversations and objections naturally</li>
+              <li>Convert conversations into paid work</li>
+            </ul>
+            <div class="phase-goal">Goal: A real offer. The confidence to sell it. Your first client conversation.</div>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-tag">Phase 03<br>Clients</div>
+          <div>
+            <h3>The Client Flow System</h3>
+            <p>Find the right clients consistently — and eventually move from chasing clients to having them come to you.</p>
+            <ul>
+              <li>Identify the right clients for your specific photography style</li>
+              <li>Build a repeatable, predictable outreach system</li>
+              <li>Convert inquiries into booked jobs</li>
+              <li>Build relationships that lead to referrals and repeat work</li>
+              <li>Transition from outbound hustle to inbound brand</li>
+            </ul>
+            <div class="phase-goal">Goal: First client. Then a system. Then clients that come to you.</div>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-tag">Phase 04<br>Brand</div>
+          <div>
+            <h3>The Personal Brand Engine</h3>
+            <p>Build a social media presence that attracts the right opportunities — clients, brand deals, collaborations, and a following that grows your reputation automatically.</p>
+            <ul>
+              <li>Platform selection and profile optimisation</li>
+              <li>The content system that took Hugo from 0 to 900K followers</li>
+              <li>Client Magnet Formula — attract buyers, not just fans</li>
+              <li>Endless Idea Generator — never run out of content again</li>
+              <li>Build a brand that opens doors without constant hustle</li>
+            </ul>
+            <div class="phase-goal">Goal: Inbound. Opportunities that come to you. A career that compounds.</div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:24px;font-size:14px;color:#4a6a8a;">Implementing the full framework takes 3–6 months. This is a real system — not a weekend course. The results are real because the work is real.</p>
+    </div>
+  </div>
+
+  <!-- WHAT YOU GET -->
+  <div class="section">
+    <div class="container">
+      <span class="label">Inside the community</span>
+      <h2>Here's exactly what you get.</h2>
+
+      <div class="ai-card">
+        <div class="feature-icon">🤖</div>
+        <h3>Imagine having Hugo in your pocket 24/7 — that's Hugo AI.</h3>
+        <p>Every lesson Hugo has ever created, every framework, every answer to every photography and business question — trained into an AI available whenever you need it. 2am question about composition? Hugo AI. Stuck on how to price a client? Hugo AI. Not sure what to practise next? Hugo AI diagnoses exactly what your problem is, tells you what to practise, and points you to the specific lesson that will move you forward fastest.</p>
+        <p>This isn't a generic chatbot. It's Hugo's complete knowledge — available on demand, at any hour. Hugo AI gives you the framework and the answers. It doesn't watch your situation, notice what you're avoiding, or make judgment calls on what you specifically need to do next. That's what 1:1 is for.</p>
+        <div class="ai-screenshot"><img src="photos/sales page/hugo_ai.jpg" alt="Hugo AI" style="width:100%;border-radius:8px;" /></div>
+      </div>
+
+      <div class="features-grid" style="margin-top:12px;">
+        <div class="feature">
+          <div class="feature-icon">📚</div>
+          <h3>Full Story Vault™ Curriculum</h3>
+          <p>Every lesson Hugo teaches his 1:1 clients. Photography path (Levels 1–3) and business path (Levels 4–9). Step by step, level by level. Everything available from day one — no drip-feeding.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎙</div>
+          <h3>Monthly Live Masterclass</h3>
+          <p>Once a month, live with Hugo. Topic chosen based on what the community needs most. Q&A included. This is your direct access point to Hugo — recordings available if you can't make it live.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">👥</div>
+          <h3>The Community</h3>
+          <p>Photographers at different stages, with different expertise and experience. You never know which conversation, which shared lesson, which person's experience changes everything for you. This is not a place to hang out — it's a place to grow.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🌍</div>
+          <h3>Hugo checks in every 2–3 days</h3>
+          <p>Hugo is a travelling photographer living the life he teaches — not sitting behind a screen 24/7. That's the point. He checks in regularly to see what's happening. The daily-access model isn't what gets you results. The framework is.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELIVERY -->
+  <div class="section">
+    <div class="container">
+      <span class="label">How this works</span>
+      <h2>Simple. Structured. Self-paced — with support when you need it.</h2>
+      <div class="phases">
+        <div class="phase">
+          <div class="phase-tag">Step 01</div>
+          <div><h3>Join and get instant access</h3><p>Everything is available from day one. Photography path, business path, Hugo AI, community. Start wherever makes sense for where you are.</p></div>
+        </div>
+        <div class="phase">
+          <div class="phase-tag">Step 02</div>
+          <div><h3>Follow the curriculum</h3><p>Work through the levels at your own pace. Photography path if craft is your priority. Business path if you're ready to build. Both if you want the full transformation.</p></div>
+        </div>
+        <div class="phase">
+          <div class="phase-tag">Step 03</div>
+          <div><h3>Use Hugo AI whenever you're stuck</h3><p>Any question, any time. Hugo AI diagnoses your problem, assigns a practice exercise, and points you to the exact lesson that will move you forward.</p></div>
+        </div>
+        <div class="phase">
+          <div class="phase-tag">Step 04</div>
+          <div><h3>Show up to the monthly masterclass</h3><p>Live with Hugo once a month. Ask your questions directly. Stay connected to what the community is working through.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVESTMENT -->
+  <div class="section" id="pricing">
+    <div class="container">
+      <span class="label">Your investment</span>
+      <div class="price-hero">
+        <div class="price-big">$100<span style="font-size:22px;color:#4a6a8a;font-weight:400;">/month</span></div>
+        <div class="price-week">That's only $25 a week.</div>
+        <div class="price-compare">Less than one dinner out per week. About 6 coffees. Cancel anytime.</div>
+      </div>
+
+      <div class="offers">
+        <div class="offer featured">
+          <div class="offer-top">
+            <div>
+              <span class="label" style="margin-bottom:6px;">Most popular — start here</span>
+              <h3>The Story Lens Community</h3>
+            </div>
+            <div class="offer-badge">Founding rate</div>
+          </div>
+          <p>Hugo's complete photography and business framework. If you trust yourself to implement — you just need the roadmap, the tools, and Hugo AI when you're stuck — this is built for you. Hugo AI available 24/7. Monthly live masterclass with Hugo. A community of photographers building something real.</p>
+          <ul>
+            <li>Full Story Vault™ curriculum — photography + business</li>
+            <li>Hugo AI — trained on every lesson, available 24/7</li>
+            <li>Monthly live masterclass + Q&A with Hugo</li>
+            <li>Community of photographers at all stages</li>
+            <li>Cancel anytime · 14-day money-back guarantee</li>
+          </ul>
+          <a href="https://www.skool.com/story-lens/about" class="btn btn-primary btn-block">Join for $100/month ($25/week) →</a>
+          <p style="text-align:center;margin-top:12px;font-size:13px;color:#3a5a7a;">or $1,000/year — 2 months free, founding rate locked for 12 months</p>
+        </div>
+
+        <div class="offer">
+          <div class="offer-top">
+            <div>
+              <span class="label" style="margin-bottom:6px;">Want Hugo's eyes on your specific photos</span>
+              <h3>Photography Sprint — €997</h3>
+            </div>
+          </div>
+          <p>A structured 30-day program with 2 personal photo feedback sessions from Hugo directly. For photographers who want faster results with Hugo's eyes on their specific work.</p>
+          <ul>
+            <li>Everything in the community</li>
+            <li>Structured 30-day photography program</li>
+            <li>2 personal photo feedback sessions with Hugo</li>
+          </ul>
+          <a href="https://www.instagram.com/hugokorhonen" class="btn btn-secondary btn-block">DM Hugo to apply →</a>
+        </div>
+
+        <div class="offer">
+          <div class="offer-top">
+            <div>
+              <span class="label" style="margin-bottom:6px;">Want someone personally in the trenches with you</span>
+              <h3>1:1 Mentorship — €3,000–6,500</h3>
+            </div>
+          </div>
+          <p>For people who've decided they want someone in the trenches with them. You're doing the right things — you just want Hugo personally invested in your outcome, watching your situation, making sure you get there. Not information. Accountability, judgment, and someone who won't let you off the hook. Plus exclusive tools not available anywhere else — including a lead gen tool that finds qualified prospects who actually need your services and delivers their contact info to you. Limited spots available.</p>
+          <ul>
+            <li>Private WhatsApp access Mon–Fri</li>
+            <li>2x 30-min Breakthrough Calls/month</li>
+            <li>Personal photo feedback</li>
+            <li>Hugo tracks your data and builds your custom strategy</li>
+            <li>Exclusive client tools — including a lead gen tool that finds qualified prospects who actually need your services and delivers their contact info directly to you</li>
+            <li>Everything in the community included</li>
+          </ul>
+          <a href="https://www.instagram.com/hugokorhonen" class="btn btn-ghost btn-block">DM "121" on Instagram to enquire →</a>
+        </div>
+      </div>
+
+      <!-- STRETCH INVESTMENT -->
+      <div class="stretch-box">
+        <h3>Is this a stress investment or a stretch investment?</h3>
+        <p style="margin-top:12px;">A stress investment keeps you up at night. It genuinely threatens your stability. If that's what this is — don't do it.</p>
+        <p>A stretch investment makes you uncomfortable. It pushes you. It creates what I call tactical pressure — the kind that forces you to level up.</p>
+        <blockquote>"Every investment I've made in myself, I could have easily said 'I can't afford it.' I figured out a way anyway. When I've looked at the most successful photographers and creators I know, they all say the same thing: investing an uncomfortable amount into a mentor, education, or community was the turning point. They didn't ask 'Can I afford this?' They asked 'How do I make this work?'"</blockquote>
+        <p>If you're serious about your photography and your future — $25 a week is not the obstacle. It's the decision.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GUARANTEE -->
+  <div class="section-sm">
+    <div class="container">
+      <div class="guarantee">
+        <span class="label">Zero risk · 14-day money-back guarantee</span>
+        <h3>Try it for 14 days. If you don't see that it can benefit you and help you become a better photographer and move closer to your goals — email Hugo and he'll refund you in full.</h3>
+        <p>No questions. No hassle. No hard feelings. Hugo can't sleep well at night if you're not happy. So he takes all the risk. You take none.</p>
+        <p style="color:#4a96e8;font-weight:600;">The only way to lose here is to not try.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOR / NOT FOR -->
+  <div class="section">
+    <div class="container">
+      <span class="label">Be honest with yourself</span>
+      <h2>This is for you. Or it isn't.</h2>
+      <div class="for-grid">
+        <div class="for-card yes">
+          <h3>This is for you if...</h3>
+          <ul>
+            <li>You want to get significantly better at photography — not just marginally better</li>
+            <li>You want to eventually earn from your photography, even if you're not there yet</li>
+            <li>You've been trying to figure it out alone and it's taking too long</li>
+            <li>You want a proven framework, not generic inspiration</li>
+            <li>You're willing to implement what you learn</li>
+            <li>You want to build something around your photography — clients, brand deals, a career, or a life with more freedom in it</li>
+          </ul>
+        </div>
+        <div class="for-card no">
+          <h3>This is not for you if...</h3>
+          <ul>
+            <li>You want someone to do the work for you</li>
+            <li>You're looking for a shortcut that doesn't require real implementation</li>
+            <li>You want to join a community to hang out on weekly calls and chat without making real progress</li>
+            <li>You expect overnight results without putting in the hours</li>
+            <li>You're not sure you can do this without someone being there for you, personally watching your progress and making sure you get there — if that's you, the 1:1 mentorship is the right call, not this</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="section">
+    <div class="container">
+      <span class="label">What students say</span>
+      <h2>Don't just take Hugo's word for it.</h2>
+      <div style="margin-top:32px;">
+        <script type="text/javascript" src="https://widget.senja.io/js/iframeResizer.min.js"></script>
+        <iframe id="wall-of-love-5Bs7zEw" src="https://senja.io/p/hugos-school/5Bs7zEw?hideNavigation=true&embed=true" title="Wall of Love" frameborder="0" scrolling="no" width="100%"></iframe>
+        <script type="text/javascript">document.addEventListener("DOMContentLoaded", function () {iFrameResize({log: false, checkOrigin: false}, "#wall-of-love-5Bs7zEw");});</script>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <div class="container">
+      <span class="label">Questions</span>
+      <h2>Questions you might have.</h2>
+      <div class="faqs">
+        <div class="faq">
+          <h3>What's the difference between the community and the 1:1 mentorship?</h3>
+          <p>The community is for people who trust themselves to make it happen — they just need the roadmap, the tools, and Hugo AI when they hit a wall. The execution is on you. The 1:1 is for people who want someone personally in the trenches with them — Hugo watching their specific situation, there for them, making judgment calls on what to prioritize, and making sure they actually get the results. If you find yourself asking "can I really do this without someone personally being there for me?" — that's your answer. That's what the 1:1 is for.</p>
+        </div>
+        <div class="faq">
+          <h3>I only want to improve my photography — do I need the business side?</h3>
+          <p>No. Start with the photography path (Levels 1–3). It's completely standalone. The business content is there when and if you want it.</p>
+        </div>
+        <div class="faq">
+          <h3>What does Hugo AI actually do?</h3>
+          <p>Hugo AI is trained on every lesson Hugo has ever created. Ask it any question about photography or business — it diagnoses what your specific problem is, tells you what to practise, and points you to the exact lesson that will move you forward. Available 24/7, responds immediately.</p>
+        </div>
+        <div class="faq">
+          <h3>Do I need specific gear?</h3>
+          <p>No. The framework works with any camera — including a smartphone. Better gear expands your creative options, but it's not a prerequisite for anything here.</p>
+        </div>
+        <div class="faq">
+          <h3>How long until I see results?</h3>
+          <p>Photography transformation: most members notice a real shift within 60 days of implementing the Storycraft System. Business results depend on where you're starting and how fast you move — those who take action on the business path start having real client conversations. Full implementation of the framework: 3–6 months.</p>
+        </div>
+        <div class="faq">
+          <h3>How much of Hugo do I actually get?</h3>
+          <p>Hugo AI is available 24/7 and is your first stop for any question. Hugo himself checks in every 2–3 days to see what's happening in the community. The monthly masterclass is your live access point to Hugo directly. Personal WhatsApp access and photo feedback are in the 1:1 mentorship.</p>
+        </div>
+        <div class="faq">
+          <h3>I've bought courses before that didn't work. Why is this different?</h3>
+          <p>Most courses give you information without direction or accountability. Hugo AI gives you direction specific to your situation. The community keeps you accountable. And the framework is built around implementation — not just watching videos.</p>
+        </div>
+        <div class="faq">
+          <h3>Can I cancel anytime?</h3>
+          <p>Yes. Directly through Skool. No contracts, no friction. On the annual plan, your rate is locked for the full 12 months.</p>
+        </div>
+        <div class="faq">
+          <h3>Is the annual plan worth it?</h3>
+          <p>If you're serious about going through the full framework, yes. Two months free, and your founding rate is locked — even if the price increases as the community grows.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="final-cta">
+    <div class="container">
+      <span class="label">One decision left</span>
+      <h2>You have the skill.<br>Now build the life around it.</h2>
+      <p>The photographers building their craft and their brand right now will be the ones who thrive. The framework is here. Hugo AI is here. The community is here. The only variable is whether you start.</p>
+      <div class="cta-stack">
+        <a href="https://www.skool.com/story-lens/about" class="btn btn-primary">Join for $100/month ($25/week) →</a>
+        <a href="https://www.skool.com/story-lens/about" class="btn btn-secondary">Join annually — $1,000/year (2 months free) →</a>
+        <a href="https://www.instagram.com/hugokorhonen" class="btn btn-ghost">Apply for 1:1 mentorship — DM "1:1" →</a>
+      </div>
+      <div class="trust-pills" style="margin-top:24px;">
+        <span>Cancel anytime</span>
+        <span>14-day money-back guarantee</span>
+        <span>Instant access</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="container">
+      <p>© 2026 Hugo Korhonen · Story Lens™ · <a href="#" style="color:#2a4a6a;">Privacy</a> · <a href="#" style="color:#2a4a6a;">Refunds</a></p>
+    </div>
+  </div>
+
+  <!-- EDIT MODE -->
+  <div id="edit-bar">
+    <div id="edit-status" style="font-size:12px;color:#4a6a8a;padding:8px 12px;background:#0d1a27;border:1px solid #1a2a3a;border-radius:8px;display:none;">Click any text to edit</div>
+    <button id="edit-toggle" onclick="toggleEdit()" style="background:#1e5fa8;color:#fff;border:none;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">✏ Edit Page</button>
+    <button id="copy-btn" onclick="copyHTML()" style="background:#0d1a27;color:#4a96e8;border:1px solid #1e5fa8;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;display:none;">Copy HTML</button>
+  </div>
+
+  <script>
+    let editMode = false;
+    function toggleEdit() {
+      editMode = !editMode;
+      const btn = document.getElementById('edit-toggle');
+      const status = document.getElementById('edit-status');
+      const copyBtn = document.getElementById('copy-btn');
+      if (editMode) {
+        document.querySelectorAll('h1,h2,h3,p,li,blockquote,cite,.label,.win-name,.win-result,.win-quote,.phase-goal,.price-week,.price-compare').forEach(el => {
+          if (el.closest('#edit-bar')) return;
+          el.contentEditable = 'true';
+          el.style.outline = '1px dashed #1e5fa8';
+          el.style.minHeight = '1em';
+        });
+        btn.textContent = '✓ Done';
+        btn.style.background = '#0d5a2a';
+        status.style.display = 'block';
+        copyBtn.style.display = 'block';
+      } else {
+        document.querySelectorAll('[contenteditable]').forEach(el => {
+          el.contentEditable = 'false';
+          el.style.outline = '';
+        });
+        btn.textContent = '✏ Edit Page';
+        btn.style.background = '#1e5fa8';
+        status.style.display = 'none';
+      }
+    }
+    function copyHTML() {
+      const html = '<!DOCTYPE html>\n<html lang="en">\n' + document.documentElement.innerHTML + '\n</html>';
+      navigator.clipboard.writeText(html).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = '✓ Copied!';
+        setTimeout(() => btn.textContent = 'Copy HTML', 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>
