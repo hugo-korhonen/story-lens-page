@@ -208,7 +208,6 @@
     .footer p { font-size: 12px; color: #2a4a6a; margin-bottom: 0; }
 
     /* EDIT BAR */
-    #edit-bar { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; gap: 8px; align-items: center; }
 
     @media (max-width: 640px) {
       h1 { font-size: 30px; }
@@ -809,50 +808,6 @@
     </div>
   </div>
 
-  <!-- EDIT MODE -->
-  <div id="edit-bar">
-    <div id="edit-status" style="font-size:12px;color:#4a6a8a;padding:8px 12px;background:#0d1a27;border:1px solid #1a2a3a;border-radius:8px;display:none;">Click any text to edit</div>
-    <button id="edit-toggle" onclick="toggleEdit()" style="background:#1e5fa8;color:#fff;border:none;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">✏ Edit Page</button>
-    <button id="copy-btn" onclick="copyHTML()" style="background:#0d1a27;color:#4a96e8;border:1px solid #1e5fa8;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;display:none;">Copy HTML</button>
-  </div>
-
-  <script>
-    let editMode = false;
-    function toggleEdit() {
-      editMode = !editMode;
-      const btn = document.getElementById('edit-toggle');
-      const status = document.getElementById('edit-status');
-      const copyBtn = document.getElementById('copy-btn');
-      if (editMode) {
-        document.querySelectorAll('h1,h2,h3,p,li,blockquote,cite,.label,.win-name,.win-result,.win-quote,.phase-goal,.price-week,.price-compare').forEach(el => {
-          if (el.closest('#edit-bar')) return;
-          el.contentEditable = 'true';
-          el.style.outline = '1px dashed #1e5fa8';
-          el.style.minHeight = '1em';
-        });
-        btn.textContent = '✓ Done';
-        btn.style.background = '#0d5a2a';
-        status.style.display = 'block';
-        copyBtn.style.display = 'block';
-      } else {
-        document.querySelectorAll('[contenteditable]').forEach(el => {
-          el.contentEditable = 'false';
-          el.style.outline = '';
-        });
-        btn.textContent = '✏ Edit Page';
-        btn.style.background = '#1e5fa8';
-        status.style.display = 'none';
-      }
-    }
-    function copyHTML() {
-      const html = '<!DOCTYPE html>\n<html lang="en">\n' + document.documentElement.innerHTML + '\n</html>';
-      navigator.clipboard.writeText(html).then(() => {
-        const btn = document.getElementById('copy-btn');
-        btn.textContent = '✓ Copied!';
-        setTimeout(() => btn.textContent = 'Copy HTML', 2000);
-      });
-    }
-  </script>
 
 </body>
 </html>
