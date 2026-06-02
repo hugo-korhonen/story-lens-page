@@ -1,12 +1,12 @@
-<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <!-- Shield background -->
-  <path d="M100 10 L170 40 L170 100 C170 145 135 175 100 190 C65 175 30 145 30 100 L30 40 Z" fill="#0a1e35" stroke="#f5c842" stroke-width="3"/>
+<svg width="240" height="240" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer glow ring -->
+  <path d="M120 8 L200 42 L200 118 C200 168 162 200 120 218 C78 200 40 168 40 118 L40 42 Z" fill="#0a1e35" stroke="#f5c842" stroke-width="4"/>
   <!-- Inner shield -->
-  <path d="M100 25 L158 50 L158 100 C158 137 128 162 100 175 C72 162 42 137 42 100 L42 50 Z" fill="#071220"/>
-  <!-- Text: 100% -->
-  <text x="100" y="82" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="800" fill="#f5c842">100%</text>
-  <!-- Text: MONEY-BACK -->
-  <text x="100" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#fff" letter-spacing="1">MONEY-BACK</text>
-  <!-- Text: GUARANTEE -->
-  <text x="100" y="122" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#f5c842" letter-spacing="1.5">GUARANTEE</text>
+  <path d="M120 26 L184 56 L184 118 C184 158 150 186 120 202 C90 186 56 158 56 118 L56 56 Z" fill="#071220"/>
+  <!-- 100% big -->
+  <text x="120" y="106" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" font-weight="800" fill="#f5c842">100%</text>
+  <!-- MONEY-BACK -->
+  <text x="120" y="132" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#ffffff" letter-spacing="1.5">MONEY-BACK</text>
+  <!-- GUARANTEE -->
+  <text x="120" y="152" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#f5c842" letter-spacing="2">GUARANTEE</text>
 </svg>
