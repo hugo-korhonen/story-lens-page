@@ -1,0 +1,12 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shield background -->
+  <path d="M100 10 L170 40 L170 100 C170 145 135 175 100 190 C65 175 30 145 30 100 L30 40 Z" fill="#0a1e35" stroke="#f5c842" stroke-width="3"/>
+  <!-- Inner shield -->
+  <path d="M100 25 L158 50 L158 100 C158 137 128 162 100 175 C72 162 42 137 42 100 L42 50 Z" fill="#071220"/>
+  <!-- Checkmark -->
+  <path d="M68 100 L88 120 L132 76" stroke="#f5c842" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Text: 14-DAY -->
+  <text x="100" y="148" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#f5c842" letter-spacing="1">14-DAY</text>
+  <!-- Text: GUARANTEE -->
+  <text x="100" y="163" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#8aabc8" letter-spacing="1.5">GUARANTEE</text>
+</svg>
