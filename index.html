@@ -38,7 +38,7 @@
     .section-sm { padding: 56px 0; border-bottom: 1px solid #0d1f33; }
 
     /* LOGO BAR */
-    .logo-bar { padding: 16px 24px; border-bottom: 1px solid #0d1f33; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; position: sticky; top: 0; background: #071220; z-index: 100; }
+    .logo-bar { padding: 16px 24px; border-bottom: 1px solid #0d1f33; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: #071220; z-index: 100; }
     .logo-bar span { font-size: 15px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #4a96e8; }
     .logo-bar .nav-cta { background: #4a96e8; color: #fff; padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
     .logo-bar .nav-cta:hover { background: #5aa6f8; }
@@ -233,13 +233,11 @@
 
 <!-- LOGO BAR -->
   <div class="logo-bar">
-    <span>Story Lens™</span>
-    <div style="display:flex;align-items:center;justify-content:center;">
+    <div style="display:flex;align-items:center;gap:10px;">
       <img src="photos/storylens-logo-white.png" alt="Story Lens" style="height:56px;width:auto;" />
+      <span>Story Lens™</span>
     </div>
-    <div style="display:flex;justify-content:flex-end;">
-      <a href="#pricing" class="nav-cta">Join the Community</a>
-    </div>
+    <a href="#pricing" class="nav-cta">Join the Community</a>
   </div>
 
   
